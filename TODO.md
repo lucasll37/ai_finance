@@ -1,0 +1,4 @@
+- Criar sinal dos indicadores de volume
+- Entender Ichimoku
+- Cluesterizar por curva de retorno sob ação do algoritmo
+- Extender funcionalidade de plot de retorno acumulado para demais gráficos (proto em agent_nn.naive_choice)

@@ -1,0 +1,11 @@
+ipykernel
+matplotlib
+numpy
+optuna
+pandas
+scikit-learn
+scipy
+seaborn
+tensorflow
+xgboost
+yfinance
