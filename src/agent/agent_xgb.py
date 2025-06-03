@@ -274,6 +274,12 @@ class Agent_xgb:
 
         result['Return Acc (%)'] = result['Return'].cumsum()    
         result.reset_index(drop=True, inplace=True)
+        
+        _return = 0
+
+        if not result.empty:
+            years = (result["Close Date"].iloc[-1] - result["Start Date"].iloc[0]).days / 365.25
+            _return  = (((1 + result['Return'].sum()) ** (1/years)) - 1) * 100
 
             ########### GRAPHIC ################
         if graphic:
@@ -318,11 +324,13 @@ class Agent_xgb:
                 # axs[0].fill_between(data.loc[row["Start Date"]:row["Close Date"]].index, data.loc[row["Start Date"]:row["Close Date"], "_Close"], 0, color=color, alpha=0.2)
                 axs[0].fill_between(data.loc[row["Start Date"]:row["Close Date"]].index, data.loc[row["Start Date"]:row["Close Date"], "_Close"].max(), data.loc[row["Start Date"]:row["Close Date"], "_Close"].min(), color=color, alpha=0.2)
 
-            _return = 0
+            # _return = 0
 
-            if not result.empty:
-                years = (result["Close Date"].iloc[-1] - result["Start Date"].iloc[0]).days / 365.25
-                _return  = (((1 + result['Return'].sum()) ** (1/years)) - 1) * 100
+            # if not result.empty:
+            #     years = (result["Close Date"].iloc[-1] - result["Start Date"].iloc[0]).days / 365.25
+            #     _return  = (((1 + result['Return'].sum()) ** (1/years)) - 1) * 100
+                
+            
 
             fig.suptitle(f'Results with naive choice {signal} ({_return:.2f} % a.a.)', fontsize=16)
 
@@ -335,6 +343,9 @@ class Agent_xgb:
 
         if return_df:
             return result
+        
+        else:
+            return _return
         
 
     def naive_choice_market(self, companies, return_df=False): 
